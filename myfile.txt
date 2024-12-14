@@ -1,0 +1,48 @@
+1) How did you handle inline editing in the table?
+
+Inline editing was implemented using the ReactTabulator library. 
+For editable fields, such as Title, Description, and Status, the 
+editor property of the column definition was set to "input", "textarea", 
+and "select" respectively. This allowed users to directly edit the table cells. 
+The editorParams were used to define the dropdown options for the Status field.
+
+2) Explain how you fetched and processed the data from the dummy API?
+
+Data was fetched using the fetchTasks function, which made an API call to 
+https://jsonplaceholder.typicode.com/todos via Axios. Only the first 20 tasks 
+were used by slicing the returned data. The completed field was mapped to the 
+Status column, where true corresponded to "Done" and false to "To Do". Additionally, 
+since the API did not include a description, a default placeholder text "No description available" was added.
+
+3) What approach did you use to filter tasks based on status?
+
+A dropdown filter was used to select a status (e.g., "To Do," "In Progress," "Done").
+The selected status was stored in the statusFilter state. Tasks were dynamically filtered
+by comparing their status with the statusFilter value. This filtering logic was handled inside 
+a useEffect hook that updated the filteredTasks state whenever the statusFilter, searchQuery, 
+or tasks changed.
+
+4) How did you manage the state of tasks when adding or editing them?
+
+The tasks state was managed using React's useState hook. For adding a new task, 
+the addTask function was used to prepend the new task to the existing tasks array. 
+For inline editing, the table's data was directly bound to the tasks state. When a 
+task was edited or deleted, the setTasks function updated the state with the modified
+array.
+
+5) What challenges did you face during development, and how did you overcome them?
+
+Challenge: Integrating the ReactTabulator library and configuring inline editing for different column types was initially complex.
+Solution: Carefully studied the library's documentation to understand how to configure editors and handle cell actions.
+
+Challenge: Mapping the API's data structure to the required table format was not straightforward.
+Solution: Used the map function to transform the API's response into the desired structure, ensuring that all required fields were included.
+
+Challenge: Ensuring the table and UI remained responsive and visually appealing.
+Solution: Used TailwindCSS for layout flexibility and customized styles in the CSS file to improve the appearance of the form and table.
+
+Challenge: Debugging state updates for filtering and search.
+Solution: Added console.log statements during development and carefully analyzed the dependencies of useEffect to ensure accurate updates.
+
+These challenges helped me better understand React, state management, and third-party library integration, which are crucial for real-world development.
+
